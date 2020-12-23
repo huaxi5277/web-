@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+ 
+<body>
+    <script>
+        // 将一个数据集一份为二  对每个子序列使用归并排序  子序列有序 子序列段间有序 最后合并
+ 
+        function merge(left, right) {//将左右两个子序列作为merge函数（辅助函数）的两个参数
+            var result = [];
+            while (left.length > 0 && right.length > 0) {
+                if (left[0] <= right[0]) {//左边序列的第一个元素和右边序列的第一个元素比较，小的元素则被放入到result中
+                    //这里要着重理解为什么要用shift，shift是删除数组第一个元素并返回
+                    //如果数组中有多个元素，删除第一个，那么接下来第二个就变成第一个，然后继续选出来被比较，直到数组的长度为0
+                    result.push(left.shift());
+                } else {
+                    result.push(right.shift());
+                }
+            }
+            while (left.length)
+                result.push(left.shift());
+            while (right.length)
+                result.push(right.shift());
+            return result;
+        }
+ 
+        console.log(mergeSort([1, 4, 9, 4, 7, 2, 4, 7, 6]))
+        function mergeSort(arr) {
+            var len = arr.length
+            if (len < 2) {
+                return arr;
+            }
+            var middle = Math.floor(len / 2);
+            var left = arr.slice(0, middle);
+            var right = arr.slice(middle);
+            return merge(mergeSort(left), mergeSort(right));
+        }
+   
+   
+      
+    
+ 
+ 
+     
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    </script>
+</body>
+ 
+</html>
